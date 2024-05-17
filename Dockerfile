@@ -1,8 +1,26 @@
+RUN set -xe; \
+    apt-get update; \
+    apt-get install -y --no-install-recommends \
+        lsb-release \
+        redis-tools \
+        procps \
+        dbus \
+        upower \
+        unzip \
+        socat \
+        locales \
+        task-japanese \
+    ; \
+    apt-get autoremove -y; \
+    apt-get autoclean -y; \
+    apt-get clean -y; \
+    rm -rf /var/lib/apt/lists/* /var/cache/apt/archives/*; \
+    rm -rf /tmp/* /var/tmp/*; rm -rf /var/lib/apt/lists/* /var/cache/apt/archives/*;
 
 RUN set -xe; \
     apt-get update; \
     apt-get install -y --no-install-recommends \
-        ca-certificates \
+        ca-certificates chromium \
         fonts-liberation \
         fonts-dejavu \
         fonts-freefont-ttf \
