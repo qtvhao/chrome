@@ -1,0 +1,10 @@
+cmake
+wheel
+distro
+packaging
+pillow
+scikit-build
+numpy
+pip
+opencv-python
+pytesseract
