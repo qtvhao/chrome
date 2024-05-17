@@ -50,5 +50,3 @@ RUN set -xe; \
     rm -rf /var/lib/apt/lists/* /var/cache/apt/archives/*; \
     rm -rf /tmp/* /var/tmp/*; rm -rf /var/lib/apt/lists/* /var/cache/apt/archives/*;
 RUN mkdir -p /var/run/dbus;
-COPY ./requirements.txt /app/requirements.txt
-RUN . venv/bin/activate && pip3 install -r /app/requirements.txt
