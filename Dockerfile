@@ -30,4 +30,23 @@ RUN set -xe; \
     apt-get clean -y; \
     rm -rf /var/lib/apt/lists/* /var/cache/apt/archives/*; \
     rm -rf /tmp/* /var/tmp/*; rm -rf /var/lib/apt/lists/* /var/cache/apt/archives/*;
+
+RUN set -xe; \
+    apt-get update; \
+    apt-get install -y --no-install-recommends \
+        gnome-screenshot \
+        libgl1-mesa-glx \
+        libglib2.0-0 \
+        libxcomposite1 \
+        tesseract-ocr \
+        xdotool \
+        jq \
+    ; \
+    apt-get clean; \
+    apt-get purge -y --auto-remove chromium; \
+    apt-get autoremove -y; \
+    apt-get autoclean -y; \
+    apt-get clean -y; \
+    rm -rf /var/lib/apt/lists/* /var/cache/apt/archives/*; \
+    rm -rf /tmp/* /var/tmp/*; rm -rf /var/lib/apt/lists/* /var/cache/apt/archives/*;
 RUN mkdir -p /var/run/dbus;
