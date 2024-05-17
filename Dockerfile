@@ -1,4 +1,4 @@
-FROM ghcr.io/qtvhao/node-20.12.2:main
+FROM ghcr.io/qtvhao/python-3.12-bookworm:main
 
 ENV DL_GOOGLE_CHROME_VERSION="https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb"
 RUN set -xe; \
