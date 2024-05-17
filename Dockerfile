@@ -1,26 +1,11 @@
-RUN set -xe; \
-    apt-get update; \
-    apt-get install -y --no-install-recommends \
-        lsb-release \
-        redis-tools \
-        procps \
-        dbus \
-        upower \
-        unzip \
-        socat \
-        locales \
-        task-japanese \
-    ; \
-    apt-get autoremove -y; \
-    apt-get autoclean -y; \
-    apt-get clean -y; \
-    rm -rf /var/lib/apt/lists/* /var/cache/apt/archives/*; \
-    rm -rf /tmp/* /var/tmp/*; rm -rf /var/lib/apt/lists/* /var/cache/apt/archives/*;
+FROM ghcr.io/qtvhao/node-20.12.2:main
 
+ENV DL_GOOGLE_CHROME_VERSION="https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb"
 RUN set -xe; \
     apt-get update; \
     apt-get install -y --no-install-recommends \
-        ca-certificates chromium \
+        task-japanese \
+        ca-certificates \
         fonts-liberation \
         fonts-dejavu \
         fonts-freefont-ttf \
@@ -39,17 +24,10 @@ RUN set -xe; \
     rm chromedriver_linux64.zip; \
     which chromedriver; \
     apt-get clean; \
-    npm install -g yarn; \
-    yarn --version; \
-    npm --version; \
-    npm cache clean --force; \
-    yarn cache clean --force; \
     apt-get purge -y --auto-remove chromium; \
     apt-get autoremove -y; \
     apt-get autoclean -y; \
     apt-get clean -y; \
     rm -rf /var/lib/apt/lists/* /var/cache/apt/archives/*; \
     rm -rf /tmp/* /var/tmp/*; rm -rf /var/lib/apt/lists/* /var/cache/apt/archives/*;
-RUN . venv/bin/activate && wget https://raw.githubusercontent.com/vishnubob/wait-for-it/master/wait-for-it.sh && \
-    chmod +x wait-for-it.sh
 RUN mkdir -p /var/run/dbus;
