@@ -1,5 +1,5 @@
 FROM ghcr.io/qtvhao/python-3.12-bookworm:main
-
+# 1.1GB
 ENV DL_GOOGLE_CHROME_VERSION="https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb"
 RUN set -xe; \
     apt-get update; \
@@ -13,8 +13,9 @@ RUN set -xe; \
         fonts-ipafont-mincho \
         fonts-wqy-zenhei \
         fonts-wqy-microhei \
-    ; \
-    curl -sSL -o google-chrome-stable_current_amd64.deb $DL_GOOGLE_CHROME_VERSION; \
+    ;
+# 1.2GB
+RUN    curl -sSL -o google-chrome-stable_current_amd64.deb $DL_GOOGLE_CHROME_VERSION; \
     dpkg -i google-chrome-stable_current_amd64.deb || apt-get -fy --no-install-recommends install; \
     rm google-chrome-stable_current_amd64.deb; \
     which google-chrome-stable; \
@@ -31,6 +32,7 @@ RUN set -xe; \
     rm -rf /var/lib/apt/lists/* /var/cache/apt/archives/*; \
     rm -rf /tmp/* /var/tmp/*; rm -rf /var/lib/apt/lists/* /var/cache/apt/archives/*;
 
+# 1.6 GB
 RUN set -xe; \
     apt-get update; \
     apt-get install -y --no-install-recommends \
@@ -49,6 +51,7 @@ RUN set -xe; \
     apt-get clean -y; \
     rm -rf /var/lib/apt/lists/* /var/cache/apt/archives/*; \
     rm -rf /tmp/* /var/tmp/*; rm -rf /var/lib/apt/lists/* /var/cache/apt/archives/*;
+# 1.8 GB
 RUN mkdir -p /var/run/dbus;
 COPY package.json yarn.lock ./
-RUN yarn
+RUN yarn && rm -rf /root/.cache/puppeteer;
