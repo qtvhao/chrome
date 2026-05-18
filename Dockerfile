@@ -37,7 +37,7 @@ RUN set -xe; \
     apt-get update; \
     apt-get install -y --no-install-recommends \
         gnome-screenshot \
-        libgl1-mesa-glx \
+        libgl1 \
         libglib2.0-0 \
         libxcomposite1 \
         tesseract-ocr \
@@ -53,5 +53,22 @@ RUN set -xe; \
     rm -rf /tmp/* /var/tmp/*; rm -rf /var/lib/apt/lists/* /var/cache/apt/archives/*;
 # 1.8 GB
 RUN mkdir -p /var/run/dbus;
+RUN set -xe; \
+    apt-get update; \
+    apt-get install -y --no-install-recommends \
+        curl \
+        socat \
+    ; \
+    curl -fsSL https://deb.nodesource.com/setup_22.x | bash -; \
+    apt-get install -y --no-install-recommends nodejs; \
+    apt-get clean; \
+    apt-get autoremove -y; \
+    apt-get autoclean -y; \
+    rm -rf /var/lib/apt/lists/* /var/cache/apt/archives/*; \
+    rm -rf /tmp/* /var/tmp/*;
+WORKDIR /app
 COPY package.json yarn.lock ./
 RUN yarn && rm -rf /root/.cache/puppeteer;
+COPY app.js .
+EXPOSE 80 9222
+CMD ["sh", "-c", "socat TCP-LISTEN:9223,fork,reuseaddr TCP:127.0.0.1:9222 & node app.js"]
